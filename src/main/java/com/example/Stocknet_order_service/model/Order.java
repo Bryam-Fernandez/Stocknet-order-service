@@ -1,5 +1,6 @@
 package com.example.Stocknet_order_service.model;
 
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
