@@ -3,10 +3,14 @@ package com.example.Stocknet_order_service.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,14 +21,18 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productId;  
+    private Long productId;  
     private String name;
     private BigDecimal unitPrice = BigDecimal.ZERO;
     private int quantity = 0;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
+    private Order order;
 
     public OrderItem() {}
 
-    public OrderItem(String productId, String name, BigDecimal unitPrice, int quantity) {
+    public OrderItem(Long productId, String name, BigDecimal unitPrice, int quantity) {
         this.productId = productId;
         this.name = name;
         this.unitPrice = unitPrice == null ? BigDecimal.ZERO : unitPrice;
@@ -36,11 +44,11 @@ public class OrderItem {
         return id;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -51,6 +59,15 @@ public class OrderItem {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 
     public BigDecimal getUnitPrice() {
         return unitPrice;
@@ -68,7 +85,6 @@ public class OrderItem {
         this.quantity = Math.max(0, quantity);
     }
 
-    // lógica simple (perfecta para empezar)
     public BigDecimal getTotalPrice() {
         return unitPrice
                 .multiply(BigDecimal.valueOf(quantity))

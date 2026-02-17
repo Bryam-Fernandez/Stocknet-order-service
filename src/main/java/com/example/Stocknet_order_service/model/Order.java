@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import java.util.UUID;
 
 import com.example.Stocknet_order_service.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -30,9 +31,9 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;              
 	private Long clientId;    
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id")
-	private List<OrderItem> items = new ArrayList<>(); 
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<OrderItem> items = new ArrayList<>();
 	private BigDecimal subtotal;      
 	private BigDecimal igv;           
 	private BigDecimal costoEnvio;      

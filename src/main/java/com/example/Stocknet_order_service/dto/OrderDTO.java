@@ -17,11 +17,11 @@ import jakarta.persistence.OneToMany;
 public class OrderDTO {
 	private Long id;              
 	private Long clientId;    
-	private List<OrderItem> items = new ArrayList<>(); 
-	private BigDecimal subtotal;      
-	private BigDecimal igv;           
-	private BigDecimal costoEnvio;      
-	private BigDecimal total;         
+	private List<OrderItemDTO> items = new ArrayList<>(); 
+	private Double subtotal;      
+	private Double igv;           
+	private Double costoEnvio;      
+	private Double total;         
 	private OrderStatus status;     
 	private LocalDateTime createdAt;
 	public Long getId() {
@@ -36,34 +36,35 @@ public class OrderDTO {
 	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
-	public List<OrderItem> getItems() {
+	public List<OrderItemDTO> getItems() {
 		return items;
 	}
-	public void setItems(List<OrderItem> items) {
+	public void setItems(List<OrderItemDTO> items) {
 		this.items = items;
 	}
-	public BigDecimal getSubtotal() {
+	
+	public Double getSubtotal() {
 		return subtotal;
 	}
-	public void setSubtotal(BigDecimal subtotal) {
+	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
 	}
-	public BigDecimal getIgv() {
+	public Double getIgv() {
 		return igv;
 	}
-	public void setIgv(BigDecimal igv) {
+	public void setIgv(Double igv) {
 		this.igv = igv;
 	}
-	public BigDecimal getCostoEnvio() {
+	public Double getCostoEnvio() {
 		return costoEnvio;
 	}
-	public void setCostoEnvio(BigDecimal costoEnvio) {
+	public void setCostoEnvio(Double costoEnvio) {
 		this.costoEnvio = costoEnvio;
 	}
-	public BigDecimal getTotal() {
+	public Double getTotal() {
 		return total;
 	}
-	public void setTotal(BigDecimal total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 	public OrderStatus getStatus() {
@@ -78,8 +79,9 @@ public class OrderDTO {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	public OrderDTO(Long id, Long clientId, List<OrderItem> items, BigDecimal subtotal, BigDecimal igv,
-			BigDecimal costoEnvio, BigDecimal total, OrderStatus status, LocalDateTime createdAt) {
+	
+	public OrderDTO(Long id, Long clientId, List<OrderItemDTO> items, Double subtotal, Double igv, Double costoEnvio,
+			Double total, OrderStatus status, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.clientId = clientId;
@@ -91,7 +93,6 @@ public class OrderDTO {
 		this.status = status;
 		this.createdAt = createdAt;
 	}
-	
 	public OrderDTO() {
 	}
 }
